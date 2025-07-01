@@ -171,3 +171,4 @@ E:\InvoiceManagementApi\api\obj\Debug\net8.0\refint\api.dll
 E:\InvoiceManagementApi\api\obj\Debug\net8.0\api.pdb
 E:\InvoiceManagementApi\api\obj\Debug\net8.0\api.genruntimeconfig.cache
 E:\InvoiceManagementApi\api\obj\Debug\net8.0\ref\api.dll
+E:\InvoiceManagementApi\api\obj\Debug\net8.0\api.sourcelink.json

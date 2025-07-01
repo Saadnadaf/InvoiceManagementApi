@@ -30,6 +30,13 @@ namespace api.Controllers
             return Ok(invoice);
         }
 
+        [HttpGet]
+        public async Task<ActionResult<List<InvoiceResponseDTO>>> GetAllInvoices()
+        {
+            var invoice = await _invoiceService.GetAllInvoiceAsync();
+            return Ok(invoice);
+        } 
+
         [HttpPost]
         public async Task<ActionResult<InvoiceResponseDTO>> CreateInvoice([FromBody] CreateInvoiceMasterDTO dto)
         {
