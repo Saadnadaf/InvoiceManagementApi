@@ -16,7 +16,11 @@ namespace api.Profiles
             CreateMap<CreateInvoiceItemDTO, InvoiceItemDetail>();
 
             CreateMap<InvoiceMaster, InvoiceResponseDTO>();
-            CreateMap<InvoiceItemDetail,InvoiceItemResponseDTO>();
+            CreateMap<InvoiceItemDetail, InvoiceItemResponseDTO>();
+            
+            
+            CreateMap<UpdateInvoiceMasterDTO, InvoiceMaster>();
+            CreateMap<UpdateInvoiceItemDTO, InvoiceItemDetail>();
         }
     }
 }

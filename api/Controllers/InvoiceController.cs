@@ -35,13 +35,29 @@ namespace api.Controllers
         {
             var invoice = await _invoiceService.GetAllInvoiceAsync();
             return Ok(invoice);
-        } 
+        }
 
         [HttpPost]
         public async Task<ActionResult<InvoiceResponseDTO>> CreateInvoice([FromBody] CreateInvoiceMasterDTO dto)
         {
             var invoice = await _invoiceService.CreateInvoiceAsync(dto);
-            return CreatedAtAction(nameof(GetInvoiceById),new{id=invoice.Id},invoice);
+            return CreatedAtAction(nameof(GetInvoiceById), new { id = invoice.Id }, invoice);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateInvoice([FromRoute] int id, [FromBody] UpdateInvoiceMasterDTO dto)
+        {
+            var invoice = await _invoiceService.UpdateInvoiceAsync(id, dto);
+            if (!invoice) return NotFound();
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+         public async Task<IActionResult> DeleteInvoice([FromRoute] int id)
+        {
+            var invoice = await _invoiceService.DeleteInvoiceAsync(id);
+            if (!invoice) return NotFound();
+            return NoContent();
         }
 
             

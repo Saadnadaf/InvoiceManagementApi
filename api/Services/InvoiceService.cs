@@ -45,11 +45,11 @@ namespace api.Services
             return _mapper.Map<InvoiceResponseDTO>(invoice);
         }
 
-        public async Task<bool> UpdateInvoiceAsync(int id, CreateInvoiceMasterDTO dto)
+        public async Task<bool> UpdateInvoiceAsync(int id, UpdateInvoiceMasterDTO dto)
         {
             var invoice = await _invoicerepo.GetInvoiceById(id);
             if (invoice == null) return false;
-            var updatedinvoice = _mapper.Map<InvoiceMaster>(dto);
+            var updatedinvoice = _mapper.Map(dto,invoice);
             updatedinvoice.Id = id;
             foreach (var item in updatedinvoice.InvoiceItemDetails)
             {
