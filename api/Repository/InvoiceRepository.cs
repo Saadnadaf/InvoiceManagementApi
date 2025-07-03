@@ -48,5 +48,10 @@ namespace api.Repository
             _context.InvoiceMasters.Remove(invoice);
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<bool> InvoiceNumberExistsAsync(string invoicenumber)
+        {
+            return await _context.InvoiceMasters.AnyAsync(i => i.InvoiceNumber == invoicenumber);
+        }
     }
 }

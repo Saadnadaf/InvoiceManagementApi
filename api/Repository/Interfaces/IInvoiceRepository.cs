@@ -13,5 +13,6 @@ namespace api.Repository.Interfaces
         Task<List<InvoiceMaster>> GetAllInvoiceAsync();
         Task<bool> UpdateInvoiceAsync(InvoiceMaster invoice);
         Task<bool> DeleteInvoiceAsync(int Id);
+        Task<bool> InvoiceNumberExistsAsync(string invoicenumber);
     }
 }
