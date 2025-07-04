@@ -53,5 +53,26 @@ namespace api.Repository
         {
             return await _context.InvoiceMasters.AnyAsync(i => i.InvoiceNumber == invoicenumber);
         }
+
+        public async Task<bool> DeleteSingleInvoiceItemAsync(int invoicemasterid, int invoiceitemid)
+        {
+            var invoiceMaster = await _context.InvoiceMasters.Include(i => i.InvoiceItemDetails).FirstOrDefaultAsync(i => i.Id == invoicemasterid);
+
+            if (invoiceMaster == null) return false;
+
+            var invoiceItem = await _context.InvoiceItemDetails.FirstOrDefaultAsync(i => i.Id == invoiceitemid);
+
+            if (invoiceItem == null) return false;
+
+            _context.InvoiceItemDetails.Remove(invoiceItem);
+
+            invoiceMaster.TotalAmount = invoiceMaster.InvoiceItemDetails.Where(i => i.Id != invoiceitemid).Sum(i => i.Total);
+
+            await _context.SaveChangesAsync();
+
+            return true;
+
+
+        }
     }
 }

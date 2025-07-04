@@ -11,7 +11,8 @@ namespace api.Services.Interfaces
         Task<InvoiceResponseDTO> CreateInvoiceAsync(CreateInvoiceMasterDTO dto);
         Task<List<InvoiceResponseDTO>> GetAllInvoiceAsync();
         Task<InvoiceResponseDTO?> GetInvoiceByIdAsync(int id);
-        Task<bool> UpdateInvoiceAsync(int id , UpdateInvoiceMasterDTO dto);
-        Task<bool> DeleteInvoiceAsync(int id );
+        Task<bool> UpdateInvoiceAsync(int id, UpdateInvoiceMasterDTO dto);
+        Task<bool> DeleteInvoiceAsync(int id);
+        Task<bool> DeleteSingleInvoiceItemAsync(int invoicemasterid,int invoiceitemid);
     }
 }

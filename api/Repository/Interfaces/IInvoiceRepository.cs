@@ -14,5 +14,6 @@ namespace api.Repository.Interfaces
         Task<bool> UpdateInvoiceAsync(InvoiceMaster invoice);
         Task<bool> DeleteInvoiceAsync(int Id);
         Task<bool> InvoiceNumberExistsAsync(string invoicenumber);
+        Task<bool> DeleteSingleInvoiceItemAsync(int invoicemasterid,int invoiceitemid);
     }
 }

@@ -145,5 +145,26 @@ namespace api.Services
                 throw; 
             }
         }
+
+        public async Task<bool> DeleteSingleInvoiceItemAsync(int invoicemasterid , int invoiceitemid)
+        {
+            using var transaction = await _context.Database.BeginTransactionAsync();
+
+            try
+            {
+                var result = await _invoicerepo.DeleteSingleInvoiceItemAsync(invoicemasterid, invoiceitemid);
+
+                if (!result) throw new NotFoundException("Invoice or item not found");
+
+                await transaction.CommitAsync();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
+        }
     }
 }

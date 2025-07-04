@@ -53,7 +53,7 @@ namespace api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateInvoice([FromRoute] int id, [FromBody] UpdateInvoiceMasterDTO dto)
+        public async Task<IActionResult> UpdateInvoice([FromRoute] int id, [FromBody] UpdateInvoiceMasterDTO dto) 
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
@@ -65,7 +65,7 @@ namespace api.Controllers
         }
 
         [HttpDelete("{id}")]
-         public async Task<IActionResult> DeleteInvoice([FromRoute] int id)
+        public async Task<IActionResult> DeleteInvoice([FromRoute] int id)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
@@ -74,6 +74,14 @@ namespace api.Controllers
             if (!invoice) return NotFound();
 
             return NoContent();
+        }
+
+        [HttpDelete("{InvoiceId}/{ItemId}")]
+        public async Task<IActionResult> Deleteinvoiceitem([FromRoute]int InvoiceId,[FromRoute] int ItemId)
+        {
+            var result = await _invoiceService.DeleteSingleInvoiceItemAsync(InvoiceId, ItemId);
+
+            return result ? Ok("Invoice item deleted succesfully") : NotFound("Invoice or item not found");
         }
     }
             

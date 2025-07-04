@@ -8,7 +8,8 @@ namespace api.DTOs
 {
     public class InvoiceItemResponseDTO
     {
-        
+        [JsonPropertyName("ItemId")]
+        public int Id { get; set; }
         [JsonPropertyName("ProductName")]
         public string ProductName { get; set; } = string.Empty;
 
