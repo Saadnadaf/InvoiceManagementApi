@@ -35,6 +35,7 @@ namespace api.Middleware
         {
             int statusCode;
             string message;
+
             switch (exception)
             {
                 case NotFoundException:
@@ -54,7 +55,9 @@ namespace api.Middleware
                     message = "An unexpected error occured";
                     break;
             }
+            
             _logger.LogError(exception, "Error occured at {path} : {message}", context.Request.Path, message);
+            
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = statusCode;
 
