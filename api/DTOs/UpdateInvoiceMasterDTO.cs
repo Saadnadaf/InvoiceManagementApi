@@ -9,11 +9,6 @@ namespace api.DTOs
 {
     public class UpdateInvoiceMasterDTO
     {
-        [JsonPropertyName("InvoiceNumber")]
-        [Required]
-        [StringLength(50)]
-        public string InvoiceNumber { get; set; } = string.Empty;
-
         [JsonPropertyName("CustomerName")]
         [Required]
         [StringLength(100)]
