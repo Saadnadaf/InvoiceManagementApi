@@ -24,7 +24,8 @@ namespace api.DTOs
         public DateTime InvoiceDate { get; set; }
 
         [JsonPropertyName("InvoiceItems")]
-        [MinLength(1,ErrorMessage = "At least one invoice item is required")]
+        [Required(ErrorMessage = "Invoice items are required")]
+        [MinLength(1, ErrorMessage = "At least one invoice item is required")]
         public List<CreateInvoiceItemDTO> InvoiceItemDetails { get; set; } = new List<CreateInvoiceItemDTO>();
     }
 }

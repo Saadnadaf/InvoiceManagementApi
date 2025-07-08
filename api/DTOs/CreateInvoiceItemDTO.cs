@@ -17,12 +17,11 @@ namespace api.DTOs
 
         [JsonPropertyName("Quantity")]
         [Required]
-        [Range(1,int.MaxValue,ErrorMessage = "Quantity should be at least 1")] 
+        [Range(1,99,ErrorMessage = "Quantity should be at least 1")] 
         public int Quantity { get; set; }
 
         [JsonPropertyName("UnitPrice")]
         [Required]
-        [Range(1.00,999999999.99)]
         public decimal UnitPrice { get; set; }
         
     }

@@ -70,7 +70,7 @@ namespace api.Controllers
 
             if (!invoice) return NotFound();
 
-            return NoContent();
+            return Ok();
         }
 
         [HttpDelete("{id:int}")]
