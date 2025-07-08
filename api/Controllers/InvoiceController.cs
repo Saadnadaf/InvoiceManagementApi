@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.DTOs;
+using api.Helpers;
 using api.Repository.Interfaces;
 using api.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,7 @@ namespace api.Controllers
             _invoiceService = invoiceService;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<InvoiceResponseDTO>> GetInvoiceById([FromRoute] int id)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -35,11 +36,19 @@ namespace api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<InvoiceResponseDTO>>> GetAllInvoices()
+        public async Task<ActionResult<List<InvoiceResponseDTO>>> GetAllInvoices([FromQuery] QueryObject query)
         {
-            var invoice = await _invoiceService.GetAllInvoiceAsync();
+            try
+            {
+                var invoice = await _invoiceService.GetAllInvoiceAsync(query);
+                return Ok(invoice);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = ex.Message });
+            }
+                
 
-            return Ok(invoice);
         }
 
         [HttpPost]
@@ -52,7 +61,7 @@ namespace api.Controllers
             return CreatedAtAction(nameof(GetInvoiceById), new { id = invoice.Id }, invoice);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateInvoice([FromRoute] int id, [FromBody] UpdateInvoiceMasterDTO dto) 
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -64,7 +73,7 @@ namespace api.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteInvoice([FromRoute] int id)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);

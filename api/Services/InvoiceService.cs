@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using api.Data;
 using api.DTOs;
 using api.Exceptions;
+using api.Helpers;
 using api.Models;
 using api.Repository.Interfaces;
 using api.Services.Interfaces;
@@ -69,9 +70,9 @@ namespace api.Services
             }
         }
 
-        public async Task<List<InvoiceResponseDTO>> GetAllInvoiceAsync()
+        public async Task<List<InvoiceResponseDTO>> GetAllInvoiceAsync(QueryObject query)
         {
-            var invoice = await _invoicerepo.GetAllInvoiceAsync();
+            var invoice = await _invoicerepo.GetAllInvoiceAsync(query);
 
             return _mapper.Map<List<InvoiceResponseDTO>>(invoice);
         }
