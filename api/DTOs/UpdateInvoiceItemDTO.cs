@@ -16,7 +16,7 @@ namespace api.DTOs
 
         [JsonPropertyName("Quantity")]
         [Required]
-        [Range(1,99,ErrorMessage ="Quantity should be at least 1")]
+        [Range(1,99,ErrorMessage ="Quantity should be more than 1 and less than 100 ")]
         public int Quantity { get; set; }
 
         [JsonPropertyName("UnitPrice")]
