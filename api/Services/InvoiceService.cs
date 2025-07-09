@@ -101,17 +101,30 @@ namespace api.Services
                 {
                     throw new BadRequestException("Customer name is required");
                 }
-                var updatedinvoice = _mapper.Map(dto, invoice);
 
-                updatedinvoice.Id = id;
+                invoice.CustomerName = dto.CustomerName;
+                invoice.InvoiceDate = dto.InvoiceDate;
 
-                foreach (var item in updatedinvoice.InvoiceItemDetails)
+                foreach (var itemdto in dto.InvoiceItemDetails)
                 {
-                    item.Total = item.Quantity * item.UnitPrice;
-                }
-                updatedinvoice.TotalAmount = updatedinvoice.InvoiceItemDetails.Sum(i => i.Total);
+                    var item = invoice.InvoiceItemDetails.FirstOrDefault(i => i.Id == itemdto.Id);
+                    if (item != null)
+                    {
+                        item.ProductName = itemdto.ProductName;
+                        item.Quantity = itemdto.Quantity;
+                        item.UnitPrice = itemdto.UnitPrice;
 
-                var result = await _invoicerepo.UpdateInvoiceAsync(updatedinvoice);
+                        item.Total = item.Quantity * item.UnitPrice;
+                    }
+
+                    else
+                    {
+                        throw new NotFoundException($"Item not found in Invoice {invoice.Id} ");
+                    }
+                }
+                invoice.TotalAmount = invoice.InvoiceItemDetails.Sum(i => i.Total);
+
+                var result = await _invoicerepo.UpdateInvoiceAsync(invoice);
 
                 await transaction.CommitAsync();
 

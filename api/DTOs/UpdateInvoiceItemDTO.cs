@@ -9,6 +9,10 @@ namespace api.DTOs
 {
     public class UpdateInvoiceItemDTO
     {
+        [JsonPropertyName("ItemId")]
+        [Required]
+        public int Id { get; set; }
+
         [JsonPropertyName("ProductName")]
         [Required]
         [StringLength(100)]
